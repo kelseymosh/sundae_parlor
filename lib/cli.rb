@@ -33,6 +33,7 @@ class Cli
         puts "Would you like a sample today, #{@user}? Enter: Y/N"
         answer = gets.chomp
         if answer == "Y"
+            system 'clear'
             select_sample_flavor 
             puts "Here is your sample of #{@chosen_sample_flavor}. Are you ready to order? Y/N"  
             answer = gets.chomp
@@ -45,16 +46,34 @@ class Cli
     end
 
     def order_ice_cream
-        @chosen_flavors = @prompt.multi_select("Choose two ice cream flavors", flavors)
+        @chosen_flavors = @prompt.multi_select("Choose your ice cream flavors", flavors)
     
     end
         
     def pick_toppings
-        @chosen_toppings = @prompt.multi_select("Now choose two toppings", toppings)
+        @chosen_toppings = @prompt.multi_select("Now choose your toppings", toppings)
+    end
+
+    def all_chosen_toppings
+        @chosen_toppings.each {|topping| }
     end
     
     def create_sundae
-        puts "Thanks for your order #{@user}! Enjoy your #{@chosen_flavors[0]}, #{@chosen_flavors[1]} sundae with #{@chosen_toppings[0]} and #{@chosen_toppings[1]}!"
+        puts "Thanks for your order #{@user}!"
+        puts "So for your ice cream flavors, we have: #{@chosen_flavors.join(", ")}"
+        puts "For your toppings, we have: #{@chosen_toppings.join(", ")}"
+        puts "Is that correct? Y/N"
+            answer = gets.chomp
+                if answer == "Y"
+                    puts "Enjoy your sundae!"
+                    answer = gets.chomp
+                else
+                    system 'clear'
+                    puts "Our bad! We will remake your sundae!  Please go back to the ice cream counter."
+                order_ice_cream
+                pick_toppings
+                create_sundae
+        end
     end
 
 end
