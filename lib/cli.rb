@@ -13,10 +13,7 @@ class Cli
             puts "Thank you!"
         end
     
-    def show_flavors
-       puts IceCream.all.pluck(:flavor)
-    end
-
+        
     def flavors
         IceCream.all.pluck(:flavor)
     end
@@ -54,10 +51,7 @@ class Cli
         @chosen_toppings = @prompt.multi_select("Now choose your toppings", toppings)
     end
 
-    def all_chosen_toppings
-        @chosen_toppings.each {|topping| }
-    end
-    
+
     def create_sundae
         puts "Thanks for your order #{@user}!"
         puts "So for your ice cream flavors, we have: #{@chosen_flavors.join(", ")}"
